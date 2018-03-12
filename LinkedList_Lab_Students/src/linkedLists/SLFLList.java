@@ -36,43 +36,78 @@ public class SLFLList<E> extends SLList<E>
 	}
 
 	public void addNodeBefore(Node<E> target, Node<E> nuevo) {
-		
-		
+		if (target == last)
+			this.addFirstNode(nuevo); 
+		else { 
+			Node<E> prevNode = findNodePrevTo(target);  
+			this.addNodeAfter(prevNode, nuevo); 
+		}
 	}
 
 	public Node<E> getFirstNode() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		if (first == null)
+		throw new NoSuchElementException("getFirstNode() : linked list is empty..."); 
+	
+		// the linked list is not empty....
+		return first;
 	}
 
 	public Node<E> getLastNode() throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		if(last == null)
+			throw new NoSuchElementException("getLastNode() : linked list is empty");
+		
+		//if the list is not empty
+		return last;
 	}
 
 	public Node<E> getNodeAfter(Node<E> target) throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		SNode<E> na= ((SNode) target).getNext();
+		if(na == last){
+			throw new NoSuchElementException("There is not such element");
+		}
+		
+		return na;
 	}
 
 	public Node<E> getNodeBefore(Node<E> target)
 			throws NoSuchElementException {
-		// TODO Auto-generated method stub
-		return null;
+		if (target == first)  
+			throw new NoSuchElementException("getPrevNode(...) : target is the first node."); 
+		else 
+			return findNodePrevTo(target);
 	}
 
 	public int length() {
 		// TODO Auto-generated method stub
-		return 0;
+		return this.length;
 	}
 
 	public void removeNode(Node<E> target) {
-		// TODO Auto-generated method stub
+		if (target == first) 
+			first = first.getNext(); 
+		else { 
+			SNode<E> prevNode = (SNode<E>) this.getNodeBefore(target); 
+			prevNode.setNext(((SNode<E>) target).getNext()); 
+		}
+		((SNode<E>) target).clean();   // clear all references from target
+		length--; 
 		
 	}
 	
 	public Node<E> createNewNode() {
 		return new SNode<E>();
+	}
+	
+	private Node<E> findNodePrevTo(Node<E> target) {
+		// Pre: target is a node in the list
+		if (target == first) 
+			return null; 
+		else { 
+			SNode<E> prev = first; 
+			while (prev != null && prev.getNext() != target) 
+				prev = prev.getNext();  
+			return prev; 
+		}
 	}
 
 }
