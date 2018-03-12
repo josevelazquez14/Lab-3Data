@@ -65,14 +65,20 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 
 	public Node<E> getNodeAfter(Node<E> target)
 			throws NoSuchElementException {
-		// ADD CODE HERE AND MODIFY RETURN ACCORDINGLY
-		return null; 
+		if(trailer == null)
+			throw new NoSuchElementException("get node after : target is the last node");
+		
+		DNode<E> dtarget = (linkedLists.AbstractDLList.DNode<E>) target;
+		return dtarget.getNext(); 
 	}
 
 	public Node<E> getNodeBefore(Node<E> target)
 			throws NoSuchElementException {
-		// ADD CODE HERE AND MODIFY RETURN ACCORDINGLY
-		return null; 
+		if(header == null)
+			throw new NoSuchElementException("get node before : target is the first node");
+		
+		DNode<E> dtarget = (linkedLists.AbstractDLList.DNode<E>) target;
+		return dtarget.getPrev(); 
 	}
 
 	public int length() {
@@ -105,7 +111,8 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 	 * doubly linked list with dummy header and dummy trailer nodes. 
 	 */
 	public void makeEmpty() { 
-		// TODO
+		destroy();
+		this.length =0;
 	}
 		
 	protected void finalize() throws Throwable {
