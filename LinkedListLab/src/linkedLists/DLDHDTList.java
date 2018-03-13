@@ -72,17 +72,16 @@ public class DLDHDTList<E> extends AbstractDLList<E> {
 
 	public Node<E> getNodeAfter(Node<E> target)
 			throws NoSuchElementException {
-		SNode<E> aNode = ((SNode<E>) target).getNext(); 
-		if (trailer == null)  
-			throw new NoSuchElementException("getNodeAfter(...) : target is the last node."); 
-		else 
-			return aNode;
+		SNode<E> aNode= ((SNode<E>)target).getNext(); 
+		if(aNode==null) 
+			throw new NoSuchElementException("Next node does not exist. Target is the last node.");
+		return aNode;
 	}
 
 	public Node<E> getNodeBefore(Node<E> target)
 			throws NoSuchElementException {
 		SNode<E> aNode = ((SNode<E>) target).getNext(); 
-		if (header == null)  
+		if (aNode == null)  
 			throw new NoSuchElementException("getNodeBefore(...) : target is the first node."); 
 		else 
 			return aNode;
