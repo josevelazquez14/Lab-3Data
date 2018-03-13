@@ -121,5 +121,16 @@ public class LLIndexList<E> implements IndexList<E> {
 		return etr; 
 	}
 	
+	public Object[] toArray() {
+		Object[] array = (new Object[this.size()]);
+		
+		
+		for(int i=0; i<this.size(); i++){
+			array[i]= this.get(i);
+		}
+		
+		return null;
+	}
+	
 
 }
