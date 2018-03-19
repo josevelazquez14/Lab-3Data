@@ -10,18 +10,18 @@ import java.util.NoSuchElementException;
  *
  */
 public class SLList<E> extends AbstractSLList<E> {
-	private SNode<E> head; 
+	private SNode<E> first; 
 	private int length; 
 
 	public SLList() {   // to create an empty list instance
-		head = null; 
+		first = null; 
 		length = 0; 
 	}
 	
 	public void addFirstNode(Node<E> nuevo) {
 		// Pre: nuevo is not a node in the list
-		((SNode<E>) nuevo).setNext(head); 
-		head = (SNode<E>) nuevo; 
+		((SNode<E>) nuevo).setNext(first); 
+		first = (SNode<E>) nuevo; 
 		length++; 
 	}
 
@@ -29,9 +29,9 @@ public class SLList<E> extends AbstractSLList<E> {
 		SNode<E> sNuevo = (SNode<E>) nuevo; 
 		sNuevo.setNext(null);
 		if (length == 0)
-			head = sNuevo; 
+			first = sNuevo; 
 		else {   // find current last node and add the new one after that last node
-			SNode<E> p = head; 
+			SNode<E> p = first; 
 			while (p.getNext() != null) 
 				p = p.getNext(); 
 			p.setNext(sNuevo);
@@ -51,7 +51,7 @@ public class SLList<E> extends AbstractSLList<E> {
 		// Pre: target is a node in the list
 		// Pre: nuevo is not a node in the list
 
-		if (target == head)
+		if (target == first)
 			this.addFirstNode(nuevo); 
 		else { 
 			Node<E> prevNode = findNodePrevTo(target);  
@@ -59,12 +59,12 @@ public class SLList<E> extends AbstractSLList<E> {
 		}
 	}
 
-	private Node<E> findNodePrevTo(Node<E> target) {
+	protected Node<E> findNodePrevTo(Node<E> target) {
 		// Pre: target is a node in the list
-		if (target == head) 
+		if (target == first) 
 			return null; 
 		else { 
-			SNode<E> prev = head; 
+			SNode<E> prev = first; 
 			while (prev != null && prev.getNext() != target) 
 				prev = prev.getNext();  
 			return prev; 
@@ -74,10 +74,10 @@ public class SLList<E> extends AbstractSLList<E> {
 	public Node<E> getLastNode() 
 	throws NoSuchElementException 
 	{
-		if (head == null)
+		if (first == null)
 			throw new NoSuchElementException("getLastNode(): Empty list."); 
 		else { 
-			SNode<E> curr = head; 
+			SNode<E> curr = first; 
 			while (((SNode<E>) curr).getNext() != null)
 				curr = curr.getNext(); 
 			return curr; 
@@ -100,7 +100,7 @@ public class SLList<E> extends AbstractSLList<E> {
 	throws NoSuchElementException 
 	{
 		// Pre: target is a node in the list
-		if (target == head)  
+		if (target == first)  
 			throw new NoSuchElementException("getPrevNode(...) : target is the first node."); 
 		else 
 			return findNodePrevTo(target);
@@ -113,8 +113,8 @@ public class SLList<E> extends AbstractSLList<E> {
 	public void removeNode(Node<E> target) {
 		// Pre: target is a node in the list; hence, the list is not empty
 		
-		if (target == head) 
-			head = head.getNext(); 
+		if (target == first) 
+			first = first.getNext(); 
 		else { 
 			SNode<E> prevNode = (SNode<E>) this.getNodeBefore(target); 
 			prevNode.setNext(((SNode<E>) target).getNext()); 
@@ -127,11 +127,11 @@ public class SLList<E> extends AbstractSLList<E> {
 	public Node<E> getFirstNode() 
 	throws NoSuchElementException 
 	{
-		if (head == null)
+		if (first == null)
 			throw new NoSuchElementException("getFirstNode() : linked list is empty..."); 
 		
 		// the linked list is not empty....
-		return head;
+		return first;
 	}
 	
 	/**
@@ -143,11 +143,11 @@ public class SLList<E> extends AbstractSLList<E> {
 	 * from the linked list
 	 */
 	private void destroy() {
-		while (head != null) { 
-			SNode<E> nnode = head.getNext(); 
-			head.setElement(null); 
-			head.setNext(null); 
-			head = nnode; 
+		while (first != null) { 
+			SNode<E> nnode = first.getNext(); 
+			first.setElement(null); 
+			first.setNext(null); 
+			first = nnode; 
 		}
 	}
 	
